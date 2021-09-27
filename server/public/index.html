@@ -1,0 +1,49 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>A Basic HTML5 Template</title>
+  <meta name="description" content="A simple HTML5 Template for new projects.">
+  <meta name="author" content="SitePoint">
+</head>
+
+<body>
+  <!-- your content here... -->
+  <div>
+    <form id='send-message'>
+      <input id='message-text' placeholder="Enter a Message" />
+      <input type="submit" value='send' />
+    </form>
+  </div>
+  <div>
+    <ul id='message-list'>
+
+    </ul>
+  </div>
+
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js'></script>
+  <script>
+    const socket = io('http://localhost:5000')
+    socket.on('connection', () => {
+        console.log('connected to socket')
+    })
+    socket.on('messageFromServer', (data) => {
+      document.querySelector('#message-list').innerHTML += data
+    })
+
+    document.querySelector('#send-message').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const message = document.querySelector('#message-text').value;
+      socket.emit('messageFromClient', message)
+    })
+
+</script>
+</body>
+
+
+
+</html>
