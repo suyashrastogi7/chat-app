@@ -4,44 +4,37 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <title>A Basic HTML5 Template</title>
+  <link rel='icon'  href='./favicon.ico'>
+  <title>A Basic Chat Application</title>
   <meta name="description" content="A simple HTML5 Template for new projects.">
   <meta name="author" content="SitePoint">
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="w-full h-screen grid grid-rows-6">
   <!-- your content here... -->
-  <div>
-    <form id='send-message'>
-      <input id='message-text' placeholder="Enter a Message" />
-      <input type="submit" value='send' />
-    </form>
+  <div class="row-span-5">
+    <div class="text-center bg-blue-100">
+      <h1 class="size-xl mb-5">Start Your Conversation</h1>
+    </div>
+    <div id='message-list' class="overflow-y-scroll h-full">
+      
+    </div>
   </div>
-  <div>
-    <ul id='message-list'>
-
-    </ul>
+  <div class="grid row-span-1 items-end pb-4">
+      <form class="grid grid-cols-10 gap-4 w-full items-end" id='send-message'>
+        <div class="col-span-8">
+          <input id='message-text' class="w-full py-3 px-3 rounded-lg border-blue-500 border-2 shadow-inner focus:border-purple-500" placeholder="Enter a Message" />
+        </div>
+        <div class="col-span-2">
+          <input class="px-8 py-3 rounded-lg bg-purple-500 text-white w-full hover:bg-purple-700" type="submit" value='Send' />
+        </div>
+      </form>
   </div>
 
 
   <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js'></script>
-  <script>
-    const socket = io('http://localhost:5000')
-    socket.on('connection', () => {
-        console.log('connected to socket')
-    })
-    socket.on('messageFromServer', (data) => {
-      document.querySelector('#message-list').innerHTML += data
-    })
-
-    document.querySelector('#send-message').addEventListener('submit', (event) => {
-      event.preventDefault();
-      const message = document.querySelector('#message-text').value;
-      socket.emit('messageFromClient', message)
-    })
-
-</script>
+  <script src="./script.js"></script>
 </body>
 
 

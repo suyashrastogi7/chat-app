@@ -22,6 +22,6 @@ const io = socketio(server)
 
 io.on('connection', (socket) => {
     socket.on('messageFromClient', (payload) => {
-      io.emit('messageFromServer',payload)
+      socket.broadcast.emit('messageFromServer',payload)
     })
 })
